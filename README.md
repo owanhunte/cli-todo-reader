@@ -9,6 +9,18 @@
 - The code is well tested, using the Jest JavaScript Testing Framework.
 - A simple `Dockerfile` is included so the tool can be run in a container.
 
+## Running the tests
+
+You can run the unit tests using the following commands:
+
+```bash
+npm install
+NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npm test
+
+# run this command to get code coverage
+NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npx jest --coverage
+```
+
 ## Running the Tool via Docker
 
 This is the recommended way to quickly get up and running so you can test out the tool. First make sure you have [Docker](https://docs.docker.com/get-docker/) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your host machine. Then do the following:
