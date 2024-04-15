@@ -16,7 +16,7 @@ export const getOptions = program => {
 
     console.log(
       chalk.magentaBright(
-        "Unable to parse 'count' option (-c, --count) as a valid number. Defaulting to 20 as the number of TODOs to consume."
+        `Unable to parse 'count' option (-c, --count) as a valid number. Defaulting to ${process.env.DEFAULT_READER_COUNT} as the number of TODOs to consume.`
       )
     );
   }
