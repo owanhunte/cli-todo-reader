@@ -15,10 +15,10 @@ You can run the unit tests using the following commands (note that you'll need t
 
 ```bash
 npm install
-NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npm test
+npm test
 
 # run this command to get code coverage
-NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npx jest --coverage
+npm run coverage
 ```
 
 ## Running the Tool via Docker
