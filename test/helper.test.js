@@ -30,8 +30,7 @@ describe("helper getOptions tests", () => {
   test("converts options.count to number if parsed option is a string", () => {
     const spy = jest.spyOn(program, "opts").mockImplementationOnce(() => {
       return {
-        count: "10",
-        selection: "even"
+        count: "10"
       };
     });
 
@@ -41,11 +40,10 @@ describe("helper getOptions tests", () => {
     expect(options.count).toStrictEqual(10);
   });
 
-  test(`sets options.count to default number ${DEFAULT_FETCH_COUNT} if input option cannot be parsed correctly`, () => {
+  test(`sets options.count to default number ${DEFAULT_FETCH_COUNT} if option cannot be parsed correctly`, () => {
     const spy = jest.spyOn(program, "opts").mockImplementationOnce(() => {
       return {
-        count: "tea",
-        selection: "odd"
+        count: "tea"
       };
     });
 
