@@ -3,7 +3,7 @@
 import { Command } from "commander";
 import { consumeTODOs, getOptions } from "./src/helper.js";
 import { DEFAULT_FETCH_COUNT, DEFAULT_SELECTION } from "./src/constants.js";
-import ora from "ora";
+import chalk from "chalk";
 
 const program = new Command();
 
@@ -25,11 +25,9 @@ program.parse();
 const options = getOptions(program);
 
 (async () => {
-  const spinner = ora(
-    `Attempting to consume the first ${options.count} ${options.selection} numbered TODOs...\n`
-  ).start();
+  console.log(
+    chalk.blueBright(`Attempting to consume the first ${options.count} ${options.selection} numbered TODOs...\n`)
+  );
 
   await consumeTODOs(options);
-
-  spinner.stop();
 })();
