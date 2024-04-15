@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { Command } from "commander";
 
 /**
@@ -8,6 +9,16 @@ export const getOptions = program => {
 
   if (typeof options.count === "string" || options.count instanceof String) {
     options.count = parseInt(options.count);
+  }
+
+  if (Number.isNaN(options.count)) {
+    options.count = parseInt(process.env.DEFAULT_READER_COUNT);
+
+    console.log(
+      chalk.magentaBright(
+        "Unable to parse 'count' option (-c, --count) as a valid number. Defaulting to 20 as the number of TODOs to consume."
+      )
+    );
   }
 
   return options;
