@@ -1,4 +1,4 @@
-# Code challenge: CLI TODOs consumer tool
+# CLI TODOs consumer tool
 
 > Summary: This is a review submission for a CLI tool built as part of a code exercise, to consume the first 'n' even or odd numbered TODOs from a pre-determined resource URL and output the title and whether it is completed or not.
 
