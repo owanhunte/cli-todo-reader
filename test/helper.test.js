@@ -10,7 +10,7 @@ describe("helper getOptions tests", () => {
     program = new Command();
   });
 
-  it("should return all parsed options", () => {
+  test("returns all parsed options", () => {
     const parsedOptions = {
       count: 20,
       selection: "even"
@@ -26,7 +26,7 @@ describe("helper getOptions tests", () => {
     expect(options).toMatchObject(parsedOptions);
   });
 
-  it("should convert options.count to number if parsed option is a string", () => {
+  test("converts options.count to number if parsed option is a string", () => {
     const spy = jest.spyOn(program, "opts").mockImplementationOnce(() => {
       return {
         count: "10",
