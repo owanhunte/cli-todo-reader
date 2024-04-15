@@ -43,30 +43,23 @@ export const consumeTODOs = async options => {
   let currentId = options.selection === "even" ? 2 : 1;
   let responseData = [];
 
-  try {
-    while (counter <= options.count) {
-      await wait(250);
+  while (counter <= options.count) {
+    await wait(250);
 
-      const response = await axios.get(`${TODOS_BASE_URL}/${currentId}`, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      responseData.push({
-        "TODO # (id)": response.data.id,
-        title: response.data.title,
-        "completed?": response.data.completed ? "yes" : "no"
-      });
+    const response = await axios.get(`${TODOS_BASE_URL}/${currentId}`, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-      currentId += 2;
-      ++counter;
-    }
-  } catch (error) {
-    console.log(
-      chalk.redBright(
-        "An error was encountered while consuming the TODOS. Exiting program, please try again later...\n"
-      )
-    );
+    responseData.push({
+      "TODO # (id)": response.data.id,
+      title: response.data.title,
+      "completed?": response.data.completed ? "yes" : "no"
+    });
+
+    currentId += 2;
+    ++counter;
   }
 
   return responseData;

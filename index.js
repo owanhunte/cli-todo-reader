@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { consumeTODOs, getOptions } from "./src/helper.js";
 import { DEFAULT_FETCH_COUNT, DEFAULT_SELECTION } from "./src/constants.js";
 import chalk from "chalk";
+import ora from "ora";
 
 const program = new Command();
 
@@ -25,12 +26,22 @@ program.parse();
 const options = getOptions(program);
 
 (async () => {
-  console.log(
-    chalk.blueBright(`Attempting to consume the first ${options.count} ${options.selection} numbered TODOs...\n`)
-  );
+  const spinner = ora(
+    `Consuming the first ${options.count} ${options.selection} numbered TODOs. Please wait...\n`
+  ).start();
 
-  const data = await consumeTODOs(options);
+  try {
+    const data = await consumeTODOs(options);
 
-  // Output the TODOs details.
-  console.table(data);
+    spinner.stop();
+    console.table(data);
+  } catch (err) {
+    spinner.stop();
+
+    console.log(
+      chalk.redBright(
+        "An error was encountered while consuming the TODOS. Exiting program, please try again later...\n"
+      )
+    );
+  }
 })();
