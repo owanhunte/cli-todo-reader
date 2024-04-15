@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { jest } from "@jest/globals";
 import { getOptions } from "../src/helper";
+import { DEFAULT_FETCH_COUNT } from "../src/constants";
 
 describe("helper getOptions tests", () => {
   /** @type {Command} */
@@ -38,5 +39,19 @@ describe("helper getOptions tests", () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(options.count).toStrictEqual(10);
+  });
+
+  test(`sets options.count to default number ${DEFAULT_FETCH_COUNT} if input option cannot be parsed correctly`, () => {
+    const spy = jest.spyOn(program, "opts").mockImplementationOnce(() => {
+      return {
+        count: "tea",
+        selection: "odd"
+      };
+    });
+
+    const options = getOptions(program);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(options.count).toStrictEqual(DEFAULT_FETCH_COUNT);
   });
 });
