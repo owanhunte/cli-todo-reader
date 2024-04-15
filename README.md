@@ -7,7 +7,7 @@
 - This CLI tool has been built as `Node.js` CLI application.
 - The command supports two options to configure both the number of TODOs that get consumed and whether to read `even` or `odd` numbered TODOs.
 - The code is well tested, using the Jest JavaScript Testing Framework.
-- A `Dockerfile` is included so the tool can be containerized.
+- A simple `Dockerfile` is included so the tool can be run in a container.
 
 ## Running the Tool via Docker
 
