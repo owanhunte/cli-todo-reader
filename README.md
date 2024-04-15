@@ -11,7 +11,7 @@
 
 ## Running the tests
 
-You can run the unit tests using the following commands:
+You can run the unit tests using the following commands (note that you'll need to have Node.js >= v20 installed on your local machine):
 
 ```bash
 npm install
