@@ -54,4 +54,17 @@ describe("helper getOptions tests", () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(options.count).toStrictEqual(DEFAULT_FETCH_COUNT);
   });
+
+  test(`sets options.count to default number ${DEFAULT_FETCH_COUNT} if option has a value less than 1`, () => {
+    const spy = jest.spyOn(program, "opts").mockImplementationOnce(() => {
+      return {
+        count: -5
+      };
+    });
+
+    const options = getOptions(program);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(options.count).toStrictEqual(DEFAULT_FETCH_COUNT);
+  });
 });
