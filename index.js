@@ -29,5 +29,8 @@ const options = getOptions(program);
     chalk.blueBright(`Attempting to consume the first ${options.count} ${options.selection} numbered TODOs...\n`)
   );
 
-  await consumeTODOs(options);
+  const data = await consumeTODOs(options);
+
+  // Output the TODOs details.
+  console.table(data);
 })();
