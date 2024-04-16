@@ -39,30 +39,42 @@ export const getOptions = program => {
  * @param {import('commander').OptionValues} options
  */
 export const consumeTODOs = async options => {
+  let CONCURRENCY_LIMIT = 5;
   let counter = 1;
   let currentId = options.selection === "even" ? 2 : 1;
-  let responseData = [];
+  let promises = [];
+  let data = [];
+  let response;
 
   while (counter <= options.count) {
+    promises = [];
+
     await wait(250);
 
-    const response = await axios.get(`${TODOS_BASE_URL}/${currentId}`, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    for (let i = 0; i < CONCURRENCY_LIMIT && counter <= options.count; i++) {
+      promises.push(
+        axios.get(`${TODOS_BASE_URL}/${currentId}`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+      );
 
-    responseData.push({
-      "TODO # (id)": response.data.id,
-      title: response.data.title,
-      completed: response.data.completed ? "yes" : "no"
-    });
+      currentId += 2;
+      ++counter;
+    }
 
-    currentId += 2;
-    ++counter;
+    response = await Promise.all(promises);
+    response.forEach(res => {
+      data.push({
+        "TODO # (id)": res.data.id,
+        title: res.data.title,
+        completed: res.data.completed ? "yes" : "no"
+      });
+    });
   }
 
-  return responseData;
+  return data;
 };
 
 /**
