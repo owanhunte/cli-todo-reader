@@ -3,7 +3,8 @@ import { Command } from "commander";
 import { jest } from "@jest/globals";
 import { consumeTODOs, getOptions } from "../src/helper";
 import { DEFAULT_FETCH_COUNT } from "../src/constants";
-import { evenNumberedTodos, oddNumberedTodos } from "./test-data";
+import evenNumberedTodos from "./data/todos-even.json";
+import oddNumberedTodos from "./data/todos-odd.json";
 
 afterEach(() => {
   // restore the spy created with spyOn
