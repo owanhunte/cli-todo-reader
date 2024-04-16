@@ -1,9 +1,16 @@
+import axios from "axios";
 import { Command } from "commander";
 import { jest } from "@jest/globals";
-import { getOptions } from "../src/helper";
+import { consumeTODOs, getOptions } from "../src/helper";
 import { DEFAULT_FETCH_COUNT } from "../src/constants";
+import { evenNumberedTodos, oddNumberedTodos } from "./test-data";
 
-describe("helper getOptions tests", () => {
+afterEach(() => {
+  // restore the spy created with spyOn
+  jest.restoreAllMocks();
+});
+
+describe("getOptions tests", () => {
   /** @type {Command} */
   let program;
 
@@ -64,5 +71,47 @@ describe("helper getOptions tests", () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(options.count).toStrictEqual(DEFAULT_FETCH_COUNT);
+  });
+});
+
+describe("consumeTODOs tests", () => {
+  test("only fetches options.count number of TODOs", async () => {
+    const options = {
+      count: 3,
+      selection: "odd"
+    };
+
+    const spy = jest
+      .spyOn(axios, "get")
+      .mockImplementationOnce(() => Promise.resolve({ data: oddNumberedTodos[0] }))
+      .mockImplementationOnce(() => Promise.resolve({ data: oddNumberedTodos[1] }))
+      .mockImplementationOnce(() => Promise.resolve({ data: oddNumberedTodos[2] }));
+
+    const data = await consumeTODOs(options);
+
+    expect(spy).toHaveBeenCalledTimes(options.count);
+    expect(data).toHaveLength(options.count);
+  });
+
+  test("returns correct title and completed status (yes or no) for each TODO fetched", async () => {
+    const options = {
+      count: 3,
+      selection: "even"
+    };
+
+    const spy = jest
+      .spyOn(axios, "get")
+      .mockImplementationOnce(() => Promise.resolve({ data: evenNumberedTodos[0] }))
+      .mockImplementationOnce(() => Promise.resolve({ data: evenNumberedTodos[1] }))
+      .mockImplementationOnce(() => Promise.resolve({ data: evenNumberedTodos[2] }));
+
+    const data = await consumeTODOs(options);
+
+    expect(data).toHaveLength(options.count);
+
+    data.forEach((element, index) => {
+      expect(element).toHaveProperty("title", evenNumberedTodos[index].title);
+      expect(element).toHaveProperty("completed", evenNumberedTodos[index].completed ? "yes" : "no");
+    });
   });
 });

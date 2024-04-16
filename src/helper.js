@@ -55,7 +55,7 @@ export const consumeTODOs = async options => {
     responseData.push({
       "TODO # (id)": response.data.id,
       title: response.data.title,
-      "completed?": response.data.completed ? "yes" : "no"
+      completed: response.data.completed ? "yes" : "no"
     });
 
     currentId += 2;
