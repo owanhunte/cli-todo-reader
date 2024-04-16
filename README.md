@@ -4,9 +4,9 @@
 
 ## The TL;DR
 
-- This CLI tool has been built as `Node.js` CLI application.
+- This CLI tool has been built as a `Node.js` CLI application.
 - The command supports two options to configure both the number of TODOs that get consumed and whether to read `even` or `odd` numbered TODOs.
-- **100% code coverage!!** Really! Run `npm run coverage` and see :).
+- **100% code coverage!!** Really!! Run `npm run coverage` and see :).
 - A simple `Dockerfile` is included so the tool can be run in a container.
 
 ## Running the tests
